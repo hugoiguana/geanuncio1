@@ -94,8 +94,10 @@ public class ReportExcelBuilder {
         return this;
     }
 
-
-
+    public ReportExcelBuilder mergeCells(CellRangeAddress cellRangeAddress) {
+        this.currentSheet.mergeCells(cellRangeAddress);
+        return this;
+    }
 
 
 

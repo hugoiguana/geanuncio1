@@ -43,17 +43,33 @@ public class TestReportBuilder {
             csColumns.setVerticalAlignment(VerticalAlignment.CENTER);
             csColumns.setFont(fontColumns);
 
+            Font fontColumnsValue = wb.createFont();
+            fontColumns.setFontHeightInPoints((short)13);
+
+            CellStyle csColumnsValue = wb.createCellStyle();
+            csColumnsValue.setBorderTop(BorderStyle.THIN);
+            csColumnsValue.setBorderBottom(BorderStyle.THIN);
+            csColumnsValue.setBorderLeft(BorderStyle.THIN);
+            csColumnsValue.setBorderRight(BorderStyle.THIN);
+            csColumnsValue.setAlignment(HorizontalAlignment.LEFT);
+            csColumnsValue.setVerticalAlignment(VerticalAlignment.CENTER);
+            csColumnsValue.setFont(fontColumnsValue);
+
             reportExcelBuilder
                     .addSheet("Gastos com Lazer")
                     .addRow(1)
                     .addCell(1, "Produto")
                     .addCell("Valor")
-                    .addCellStyle(CellRangeAddress.valueOf("B1:C1"), csColumns)
+                    .addCell("Descrição")
+                    .addCellStyle(CellRangeAddress.valueOf("B1:E1"), csColumns)
+                    .mergeCells(CellRangeAddress.valueOf("D1:E1"))
                     .setRowHeightInPoints(30)
                     .setColumnWidth(1, 30)
                     .setColumnWidth(2, 40)
                     .addRow()
-                    .addCells(1, productList, "description", "value")
+                    .addCells(1, productList, "description", "value", "description")
+                    .addCellStyle(CellRangeAddress.valueOf("B2:E2"), csColumnsValue)
+                    .mergeCells(CellRangeAddress.valueOf("D2:E2"))
                     .addSheet("Gasto com saúde")
                     .addRow(1)
                     .addCell(1, "ID")
@@ -71,7 +87,9 @@ public class TestReportBuilder {
                     .addCell("01/04/2019")
                     .addCell("Benegripe")
                     .addCell("10,00")
-                    .build("/home/hugoiguana/Downloads/");
+                    .addCellStyle(CellRangeAddress.valueOf("B2:E2"), csColumnsValue)
+                    //.build("/home/hugoiguana/Downloads/");
+                    .build("");
 
 
             //CellRangeAddress

@@ -3,6 +3,7 @@ package com.hugoiguana.br.geanuncio1.report;
 import lombok.Getter;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.WorkbookUtil;
 
 import java.util.ArrayList;
@@ -41,6 +42,10 @@ public class SheetBuilder {
         } catch (IndexOutOfBoundsException e) {
             return null;
         }
+    }
+
+    void mergeCells(CellRangeAddress cellRangeAddress) {
+        sheet.addMergedRegion(cellRangeAddress);
     }
 
 }

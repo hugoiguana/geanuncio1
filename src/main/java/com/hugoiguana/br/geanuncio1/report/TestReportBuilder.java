@@ -1,6 +1,7 @@
 package com.hugoiguana.br.geanuncio1.report;
 
 import com.hugoiguana.br.geanuncio1.models.Product;
+import com.hugoiguana.br.geanuncio1.report.Exception.CellNotFoundException;
 import com.hugoiguana.br.geanuncio1.report.Exception.ReportNameException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -61,22 +62,23 @@ public class TestReportBuilder {
                     .addCell(1, "Produto")
                     .addCell("Valor")
                     .addCell("Descrição")
-                    .addCellStyle(CellRangeAddress.valueOf("B1:E1"), csColumns)
-                    .mergeCells(CellRangeAddress.valueOf("D1:E1"))
+                    .addCell("")
+                    .addCellStyle(CellRangeAddress.valueOf("B2:E2"), csColumns)
+                    .mergeCells(CellRangeAddress.valueOf("D2:E2"))
                     .setRowHeightInPoints(30)
                     .setColumnWidth(1, 30)
                     .setColumnWidth(2, 40)
                     .addRow()
                     .addCells(1, productList, "description", "value", "description")
-                    .addCellStyle(CellRangeAddress.valueOf("B2:E2"), csColumnsValue)
-                    .mergeCells(CellRangeAddress.valueOf("D2:E2"))
+                    //.addCellStyle(CellRangeAddress.valueOf("B2:D2"), csColumnsValue)
+                    //.mergeCells(CellRangeAddress.valueOf("C2:D2"))
                     .addSheet("Gasto com saúde")
                     .addRow(1)
                     .addCell(1, "ID")
                     .addCell("Data")
                     .addCell("Decrição")
                     .addCell("Valor")
-                    .addCellStyle(CellRangeAddress.valueOf("B1:E1"), csColumns)
+                    .addCellStyle(CellRangeAddress.valueOf("B2:E2"), csColumns)
                     .setRowHeightInPoints(30)
                     .setColumnWidth(1, 4)
                     .setColumnWidth(2, 10)
@@ -87,15 +89,16 @@ public class TestReportBuilder {
                     .addCell("01/04/2019")
                     .addCell("Benegripe")
                     .addCell("10,00")
-                    .addCellStyle(CellRangeAddress.valueOf("B2:E2"), csColumnsValue)
+                    .addCellStyle(CellRangeAddress.valueOf("B3:E3"), csColumnsValue)
                     //.build("/home/hugoiguana/Downloads/");
                     .build("");
-
 
             //CellRangeAddress
 
             System.out.println("Relatório gerado com sucesso!");
         } catch (ReportNameException e) {
+            e.printStackTrace();
+        } catch (CellNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchFieldException e) {
             e.printStackTrace();

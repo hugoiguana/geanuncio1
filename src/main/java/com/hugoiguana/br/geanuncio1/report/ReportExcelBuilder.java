@@ -1,6 +1,7 @@
 package com.hugoiguana.br.geanuncio1.report;
 
 
+import com.hugoiguana.br.geanuncio1.report.Exception.CellNotFoundException;
 import com.hugoiguana.br.geanuncio1.report.Exception.ReportNameException;
 import lombok.Getter;
 import lombok.Setter;
@@ -75,9 +76,12 @@ public class ReportExcelBuilder {
         return this;
     }
 
-    public ReportExcelBuilder addCellStyle(CellRangeAddress cellRangeAddress, CellStyle cs) {
+    public ReportExcelBuilder addCellStyle(CellRangeAddress cellRangeAddress, CellStyle cs) throws CellNotFoundException {
         for (int i = cellRangeAddress.getFirstColumn(); i <= cellRangeAddress.getLastColumn(); i++) {
             Cell cell = this.currentSheet.getCurrentRow().getRow().getCell(i, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
+            if (cell == null) {
+                throw new CellNotFoundException(reportName, this.currentSheet.getName(), cellRangeAddress.formatAsString());
+            }
             cell.setCellStyle(cs);
         }
         return this;
